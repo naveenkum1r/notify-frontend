@@ -1,0 +1,38 @@
+{
+  "name": "notify-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Main.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/naveenkum1r/notify-frontend.git"
+  },
+  "author": "Naveen Kumar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naveenkum1r/notify-frontend/issues"
+  },
+  "homepage": "https://github.com/naveenkum1r/notify-frontend#readme",
+  "dependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "axios": "^0.19.2",
+    "babel-loader": "^8.1.0",
+    "immer": "^7.0.5",
+    "js-cookie": "^2.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-tooltip": "^4.2.7",
+    "socket.io-client": "^2.3.0",
+    "use-immer": "^0.4.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
