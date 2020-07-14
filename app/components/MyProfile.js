@@ -27,11 +27,10 @@ function MyProfile() {
   return (
     <>
       <div className="card-center">
-
         {appState.loggedIn && (
           <>
             <div className="profile-profile-picture">
-              <img id="profile-image" src={`http://localhost:5000/uploads/posts/` + appState.user.avatar || "http://localhost:5000/uploads/posts/no-photo.jpg"} />
+              <img id="profile-image" src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`} />
               <label>
                 <input onChange={handledpupload} className="hide" type="file" accept="image/gif, image/jpeg, image/png" />
                 <i className="fa fa-camera"></i>

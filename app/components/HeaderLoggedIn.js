@@ -17,7 +17,7 @@ function HeaderLoggedIn() {
       </div>
       </Link>
       <Link to={"/myprofile"} className="nav-profile">
-        <img src={`http://localhost:5000/uploads/posts/` + appState.user.avatar || "http://localhost:5000/uploads/posts/photo_5f0b0ad986d7bb37348c35bf.png"} />
+        <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`} />
         <div> {appState.user.name.split(" ")[0]} </div>
       </Link>
     </>
