@@ -1,30 +1,47 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from "react"
 import { useImmer } from "use-immer"
 import Axios from "axios"
 import Page from "./Page"
 import DispatchContext from "../DispatchContext"
 import StateContext from "../StateContext"
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
+import TimeAgo from "javascript-time-ago"
+import en from "javascript-time-ago/locale/en"
 
 function HomeGuest() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
+
   TimeAgo.addLocale(en)
-  const timeAgo = new TimeAgo('en-IN')
+  const timeAgo = new TimeAgo("en-IN")
 
   const [state, setState] = useImmer({
     page: 1,
     isLoading: true,
     feed: [],
-    feedfinished: false
+    feedfinished: false,
   })
+
+  useEffect(() => {
+    try {
+      navigator.geolocation.getCurrentPosition((position) => {
+        appDispatch({
+          type: "setLocation",
+          data: {
+            type: "Point",
+            coordinates: [position.coords.latitude, position.coords.longitude],
+          },
+        })
+      })
+    } catch (err) {
+      console.log("permissions were denied")
+    }
+  }, [])
 
   useEffect(() => {
     const ourRequest = Axios.CancelToken.source()
     async function fetchdata() {
       try {
-        const response = await Axios.post('/api/v1/posts/radius?page=' + state.page, { lng: appState.user.location.coordinates[0], lat: appState.user.location.coordinates[1], distance: appState.userpostradius * 1000 }, { headers: { 'Content-Type': 'application/json' } }, { cancelToken: ourRequest.token })
+        const response = await Axios.post("/api/v1/posts/radius?page=" + state.page, { lng: Boolean(appState.user.location.coordinates[0]) ? appState.user.location.coordinates[0] : currentlatitude, lat: Boolean(appState.user.location.coordinates[1]) ? appState.user.location.coordinates[1] : currentlongitude, distance: appState.userpostradius * 1000 }, { headers: { "Content-Type": "application/json" } }, { cancelToken: ourRequest.token })
         if (!response.data.pagination.next) {
           setState((draft) => {
             draft.feedfinished = true
@@ -34,35 +51,18 @@ function HomeGuest() {
           draft.isLoading = false
           draft.feed = response.data.data
         })
-        console.log(state.feed)
       } catch (e) {
         console.log("there was a problem or the request was cancelled")
       }
     }
-    if (!state.feedfinished) {
+    if (!state.feedfinished && appState.user.location.coordinates[0]) {
       fetchdata()
     }
     return () => {
       ourRequest.cancel()
     }
-  }, [state.page])
+  }, [state.page, appState.user.location.coordinates[0]])
 
-  try {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        appDispatch({
-          type: "setLocation", data: {
-            type: "Point",
-            coordinates:
-              [position.coords.latitude, position.coords.longitude
-              ]
-          }
-        })
-      })
-  }
-  catch (err) {
-    console.log("permissions were denied")
-  }
   return (
     <Page title="Welcome">
       <div className="container">
@@ -76,15 +76,11 @@ function HomeGuest() {
                       <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + post.authorinfo[0].photo} />
                     </div>
                     <div className="profile-name">
-                      <div className="profile-name-name">
-                        {post.authorinfo[0].name}
-                      </div>
-                      <div className="time">
-                        {timeAgo.format(new Date(post.createdAt))}
-                      </div>
+                      <div className="profile-name-name">{post.authorinfo[0].name}</div>
+                      <div className="time">{timeAgo.format(new Date(post.createdAt))}</div>
                     </div>
                   </div>
-                  {post.photo && post.photo != 'no-photo.jpg' && (
+                  {post.photo && post.photo != "no-photo.jpg" && (
                     <div className="imgbox">
                       <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + post.photo} />
                     </div>
@@ -93,12 +89,8 @@ function HomeGuest() {
                     <p>{post.body}</p>
                   </div>
                   <div className="number-section">
-                    <div className="hearts">
-                      {post.likesCount} likes
-            </div>
-                    <div className="views">
-                      {post.views} views
-            </div>
+                    <div className="hearts">{post.likesCount} likes</div>
+                    <div className="views">{post.views} views</div>
                   </div>
                   <div className="button-section">
                     <div className="heart-button">
