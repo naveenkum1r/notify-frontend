@@ -10,9 +10,9 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   devServer: {
-    // host: '0.0.0.0',
-    // disableHostCheck: true,
-    // port: 3000,
+    host: 'localhost',
+    disableHostCheck: true,
+    port: 3000,
     contentBase: path.join(__dirname, "app"),
     hot: true,
     historyApiFallback: { index: "index.html" }

@@ -18,7 +18,6 @@ body{
 #app
 {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
@@ -74,7 +73,10 @@ body{
 
 .container .card .profile .profile-photo img {
   width:40px;
-  border-radius: 20px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  object-position: 50% 0px;
 }
 
 .container .card .profile .profile-name{
@@ -468,17 +470,17 @@ body{
   display: flex;
   flex-direction: column;
   margin-left:20px;
+  height:100px;
+  width:100px;
+  border:5px solid grey;
+  border-radius:20px;
 }
 
-.post-bottom label i{
+.post-bottom label svg{
   font-size: 30px;;
-  height:70px;
-  width:100px;
   align-self: center;
   padding-top:30px;
   color:grey;
-  border:5px solid grey;
-  border-radius:20px;
 }
 
 .post-bottom label span{
@@ -504,12 +506,21 @@ body{
     border: 5px solid grey;
 }
 
-.preview-image i{
+.preview-image span{
+  width: 20px;
+  height: 10px;
+  z-index: 3;
+}
+
+.preview-image span svg{
   display: block;
   margin-left: -30px;
   margin-top: 10px;
   padding: 2px;
-  height: fit-content;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 50%;
+  background: grey;
   z-index: 3;
 }
 
@@ -575,7 +586,7 @@ input[type="range"]::-webkit-slider-thumb {
     align-items: center;
 }
 
-.post-button i{
+.post-button svg{
   margin-left: 7px;
 }
 
@@ -585,6 +596,7 @@ input[type="range"]::-webkit-slider-thumb {
   background:lightgray;
   font-weight: 400;
   width: 200px;
+  cursor: pointer;
   
 }
 
@@ -771,6 +783,11 @@ section .card-login .signinBx .about{
 
 section .card-login.active .signinBx .about{
   left: -100%;
+}
+
+.image-upload-button{
+  display: flex;
+  flex-direction: row;
 }
 
 

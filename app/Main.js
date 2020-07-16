@@ -16,6 +16,7 @@ import NotFound from "./components/NotFound"
 import Search from "./components/Search"
 import Login from "./components/Login"
 import MyProfile from "./components/MyProfile"
+import CreatePost from './components/CreatePost'
 
 function Main() {
   const initialState = {
@@ -133,6 +134,9 @@ function Main() {
               </Route>
               <Route path="/myprofile">
                 <MyProfile />
+              </Route>
+              <Route path="/createpost">
+                <CreatePost />
               </Route>
               <Route>
                 <NotFound />
