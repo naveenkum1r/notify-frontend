@@ -17,7 +17,7 @@ function HeaderLoggedIn() {
       </div>
       </Link>
       <Link to={"/myprofile"} className="nav-profile">
-        <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`} />
+        <img src={(process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/no-photo.jpg`} />
         <div> {appState.user.name.split(" ")[0]} </div>
       </Link>
     </>

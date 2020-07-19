@@ -6,7 +6,7 @@ import StateContext from "./StateContext"
 import DispatchContext from "./DispatchContext"
 import Axios from "axios"
 import Cookies from 'js-cookie';
-Axios.defaults.baseURL = process.env.BACKENDURL || "http://localhost:5000"
+Axios.defaults.baseURL = process.env.BACKENDURL || "https://locnotify.herokuapp.com"
 
 //Components
 import Header from "./components/Header"

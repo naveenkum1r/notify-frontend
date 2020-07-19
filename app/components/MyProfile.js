@@ -10,7 +10,7 @@ function MyProfile() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
   let locationsource = `https://maps.google.com/maps?q=` + appState.user.location.coordinates[0] + `%20` + appState.user.location.coordinates[1] + `&t=&z=11&ie=UTF8&iwloc=&output=embed`
-  let profilesource = (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`
+  let profilesource = (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/no-photo.jpg`
   let locationchanged = false
   async function handledpupload(e) {
     e.preventDefault()
@@ -62,7 +62,7 @@ function MyProfile() {
   }, [appState.user.location])
 
   useEffect(() => {
-    profilesource = (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`
+    profilesource = (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/no-photo.jpg`
   }, [appState.user.avatar])
 
   return (

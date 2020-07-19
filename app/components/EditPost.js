@@ -11,7 +11,7 @@ function EditPost(props) {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
-  const profilesource = (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`
+  const profilesource = (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/no-photo.jpg`
   const initialState = {
     id: useParams().id,
     author: "",
@@ -158,7 +158,7 @@ function EditPost(props) {
                 <span>Add image</span>
               </label>
               <div className={Boolean(state.image.value) || (Boolean(state.image.text_value) && state.image.text_value != "no-photo.jpg") ? "preview-image" : "hide"}>
-                <img id="preview-image-image" src={Boolean(state.image.value) ? URL.createObjectURL(state.image.value) : Boolean(state.image.text_value) ? (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + state.image.text_value : ""} alt="your image" />
+                <img id="preview-image-image" src={Boolean(state.image.value) ? URL.createObjectURL(state.image.value) : Boolean(state.image.text_value) ? (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + state.image.text_value : ""} alt="your image" />
                 <span onClick={(e) => dispatch({ type: "deletepreviewimage" })} ><i id="close-button" className="fa fa-times"></i></span>
               </div>
             </div>

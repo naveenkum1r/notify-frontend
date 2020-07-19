@@ -13,7 +13,7 @@ function CreatePost(props) {
   const appDispatch = useContext(DispatchContext)
 
   var socket
-  const profilesource = (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/no-photo.jpg`
+  const profilesource = (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar || (process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/no-photo.jpg`
   const initialState = {
     text: {
       hasErrors: false,
@@ -110,7 +110,7 @@ function CreatePost(props) {
         try {
           const response = await Axios.post("/api/v1/posts/", { body: state.text.value, photo: state.image.text_value, location: appState.user.location }, { headers: { 'Authorization': `Bearer ` + appState.user.token, 'Content-Type': 'application/json' } })
           response.data.success ? dispatch({ type: "sent" }) : dispatch({ type: "senthaserrros" })
-          socket = io.connect(process.env.BACKENDURL || "http://localhost:5000")
+          socket = io.connect(process.env.BACKENDURL || "https://locnotify.herokuapp.com")
           socket.on("postfromserver", data => {
             console.log(data.message)
           })

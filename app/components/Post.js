@@ -91,7 +91,7 @@ function Post(props) {
       <div className="card" >
         <div className="profile">
           <div className="profile-photo">
-            <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + state.post.authorinfo[0].photo} />
+            <img src={(process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + state.post.authorinfo[0].photo} />
           </div>
           <div className="profile-name">
             <div className="profile-name-name">{state.post.authorinfo[0].name}</div>
@@ -103,7 +103,7 @@ function Post(props) {
         </div>
         {state.post.photo && state.post.photo != "no-photo.jpg" && (
           <div className="imgbox">
-            <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + state.post.photo} />
+            <img src={(process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + state.post.photo} />
           </div>
         )}
         <div className="number-section">

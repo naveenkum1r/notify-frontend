@@ -10,7 +10,7 @@ function HeaderLoggedOut() {
   return (
     <>
       <Link to={"/login"} className="nav-profile">
-        <img src="http://localhost:5000/uploads/posts/no-photo.jpg" />
+        <img src="https://locnotify.herokuapp.com/uploads/posts/no-photo.jpg" />
         <div> Log In  </div>
       </Link>
     </>

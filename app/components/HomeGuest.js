@@ -52,7 +52,7 @@ function HomeGuest() {
         console.log("permissions were denied")
       }
     }
-    socket = io.connect(process.env.BACKENDURL || "http://localhost:5000")
+    socket = io.connect(process.env.BACKENDURL || "https://locnotify.herokuapp.com")
     socket.on("postfromserver", (message) => {
       if (message.message.type == "addpost") {
         setState((draft) => {

@@ -97,7 +97,7 @@ function ViewMyPost(props) {
                 <div className="card" post={post} key={post._id}>
                   <div className="profile">
                     <div className="profile-photo">
-                      <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + appState.user.avatar} />
+                      <img src={(process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + appState.user.avatar} />
                     </div>
                     <div className="profile-name">
                       <div className="profile-name-name">{post.authorinfo[0].name}</div>
@@ -117,7 +117,7 @@ function ViewMyPost(props) {
                   </div>
                   {post.photo && post.photo != "no-photo.jpg" && (
                     <div className="imgbox">
-                      <img src={(process.env.BACKENDURL || "http://localhost:5000") + `/uploads/posts/` + post.photo} />
+                      <img src={(process.env.BACKENDURL || "https://locnotify.herokuapp.com") + `/uploads/posts/` + post.photo} />
                     </div>
                   )}
 
