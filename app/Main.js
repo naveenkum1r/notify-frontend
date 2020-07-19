@@ -19,7 +19,7 @@ const ViewMyPost = React.lazy(() => import("./components/ViewMyPost"))
 import ChangePassword from './components/ChangePassword'
 const EditPost = React.lazy(() => import("./components/EditPost"))
 import Modal from './components/Modal'
-const Resetpassword = React.lazy(() => import("./components/Resetpassword"))
+const ResetPassword = React.lazy(() => import("./components/ResetPassword"))
 import FlashMessage from './components/FlashMessage'
 
 function Main() {
@@ -174,7 +174,7 @@ function Main() {
                 <EditPost />
               </Route>
               <Route path="/resetpassword/:id">
-                <Resetpassword />
+                <ResetPassword />
               </Route>
               <Route>
                 <NotFound />
