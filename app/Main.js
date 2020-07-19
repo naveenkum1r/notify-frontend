@@ -10,19 +10,25 @@ Axios.defaults.baseURL = process.env.BACKENDURL || "http://localhost:5000"
 
 //Components
 import Header from "./components/Header"
-import LoadingDotsIcon from "./components/LoadingDotsIcon"
 import HomeGuest from "./components/HomeGuest"
 import NotFound from "./components/NotFound"
-import Search from "./components/Search"
 import Login from "./components/Login"
-import MyProfile from "./components/MyProfile"
-import CreatePost from './components/CreatePost'
+const MyProfile = React.lazy(() => import("./components/MyProfile"))
+const CreatePost = React.lazy(() => import("./components/CreatePost"))
+const ViewMyPost = React.lazy(() => import("./components/ViewMyPost"))
+import ChangePassword from './components/ChangePassword'
+const EditPost = React.lazy(() => import("./components/EditPost"))
+import Modal from './components/Modal'
+const Resetpassword = React.lazy(() => import("./components/Resetpassword"))
+import FlashMessage from './components/FlashMessage'
 
 function Main() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("Token")),
     flashMessages: [],
+    modalMessages: [],
     user: {
+      _id: localStorage.getItem("id"),
       token: localStorage.getItem("Token"),
       name: localStorage.getItem("Name"),
       avatar: localStorage.getItem("Avatar"),
@@ -44,11 +50,25 @@ function Main() {
         draft.loggedIn = true
         draft.user.token = action.data.token
         break
+      case "updateToken":
+        draft.user.token = action.data.token
+        break
       case "logout":
         draft.loggedIn = false
+        draft.user._id = ""
+        draft.user.token = ""
         break
       case "flashMessage":
-        draft.flashMessages.push(action.value)
+        draft.flashMessages.push(action.data)
+        break
+      case "deleteflashMessage":
+        draft.flashMessages.pop()
+        break
+      case "modalMessage":
+        draft.modalMessages.push(action.data)
+        break
+      case "removeModalMessage":
+        draft.modalMessages.pop()
         break
       case "openSearch":
         draft.isSearchOpen = true
@@ -60,6 +80,7 @@ function Main() {
         draft.userpostradius = action.data
         break
       case "setUserInfo":
+        draft.user._id = action.data.data._id
         draft.user.location = action.data.data.location
         draft.user.name = action.data.data.name
         draft.user.avatar = action.data.data.photo
@@ -79,10 +100,12 @@ function Main() {
     if (state.loggedIn) {
       localStorage.setItem("Token", state.user.token)
       localStorage.setItem("Name", state.user.name)
+      localStorage.setItem("id", state.user._id)
       localStorage.setItem("Avatar", state.user.avatar)
     } else {
       localStorage.removeItem("Token")
       localStorage.removeItem("Name")
+      localStorage.removeItem("id")
       localStorage.removeItem("Avatar")
       localStorage.removeItem("radius")
     }
@@ -98,6 +121,7 @@ function Main() {
   //check if token has expired or not on first render
 
   useEffect(() => {
+    console.log("Main ran")
     if (state.loggedIn) {
       const ourRequest = Axios.CancelToken.source()
       async function fetchResults() {
@@ -124,7 +148,9 @@ function Main() {
       <DispatchContext.Provider value={dispatch}>
         <BrowserRouter>
           <Header />
-          <Suspense fallback={<LoadingDotsIcon />}>
+          <Modal />
+          <FlashMessage messages={state.flashMessages} />
+          <Suspense fallback="">
             <Switch>
               <Route path="/" exact>
                 <HomeGuest />
@@ -137,6 +163,18 @@ function Main() {
               </Route>
               <Route path="/createpost">
                 <CreatePost />
+              </Route>
+              <Route path="/myposts">
+                <ViewMyPost />
+              </Route>
+              <Route path="/changepassword">
+                <ChangePassword />
+              </Route>
+              <Route path="/edit/:id">
+                <EditPost />
+              </Route>
+              <Route path="/resetpassword/:id">
+                <Resetpassword />
               </Route>
               <Route>
                 <NotFound />

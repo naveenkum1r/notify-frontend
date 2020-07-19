@@ -26,6 +26,134 @@ body {
   display: none;
 }
 
+.red{
+  color: red;
+}
+
+.image-full{
+  width:90%;
+}
+
+
+.flashmessage{
+  height: 60px;
+  position: fixed;
+  top: 100px;
+  min-width: 250px;
+  width: fit-content;
+  transform: scale(2,2);
+  opacity:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  border-radius: 5px;
+  animation: come 3s;
+  animation-fill-mode: forwards;
+}
+
+.flashmessage p{
+  padding: 10px;
+  align-items: center;
+  font-weight: 500;
+  font-size: small;
+}
+
+.danger{
+  background:lightsalmon
+}
+
+.alert{
+  background: lightgoldenrodyellow;
+}
+
+.ok{
+  background: mediumaquamarine;
+}
+
+@keyframes come {
+  20%{
+    opacity:1;
+    transform: scale(1,1);
+  }
+  70%{
+    opacity:1;
+    transform: scale(1,1);
+  }
+  80%{
+    opacity: 0.3;
+  }
+  99% {
+    opacity:0;
+    transform: scale(2,2);
+}
+  100% {
+      opacity:0;
+      transform: scale(0,0);
+      display: none;
+  }
+}
+
+.notfound{
+  position: fixed;
+    display: flex;
+    text-align: center;
+    height: 90vh;
+    width: fit-content;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.notfound-container{
+  width:90%;
+  padding:20px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* The Modal (background) */
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 4; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  height:100%;  
+  top: 0;
+  width: 100%; /* Full width */
+  max-height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: fit-content;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  padding-left: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .container {
   position: relative;
   display: flex;
@@ -155,16 +283,16 @@ body {
   border-left: 1px solid lightgray;
 }
 
-.container .card .button-section .heart-button:hover i,
-.map-button:hover i {
+.container .card .button-section .heart-button:hover svg,
+.map-button:hover svg {
   transform: scale(1.5);
 }
 
-.container .card .button-section .heart-button:hover i {
+.container .card .button-section .heart-button:hover svg {
   color: red;
 }
 
-.container .card .button-section .liked i {
+.container .card .button-section .liked svg {
   color: red;
 }
 
@@ -307,8 +435,11 @@ body {
   flex-direction: column;
   position: fixed;
   z-index: 2;
+  display: flex;
+  align-items: center;
   top: 0;
   left: 0;
+  font-size: medium;
   bottom: 0;
   right: 0;
   background-color: rgba(215, 215, 215, 0.911);
@@ -317,17 +448,96 @@ body {
   animation-fill-mode: forwards;
 }
 
+.result-number {
+  position: absolute;
+  top:90px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  height:60px;
+  background: darkseagreen;
+  margin-bottom:10px;
+}
+
+.result-number-not-found{
+  position: absolute;
+  top:90px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  height:60px;
+  background: lightcoral;
+  margin-bottom:10px;
+}
+
+.search-item{
+  width: 500px;
+  max-width: 90%;
+  min-height: 30px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 4px grey;
+  border-radius: 5px;
+  justify-content: center;
+  background: white;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  flex-direction: column;
+  animation: 0.5s come-in;
+}
+
+.search-items{
+  margin-top: 160px;
+  display: flex;
+  position: relative;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: center;
+  max-height: 74vh;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.search-items::-webkit-scrollbar {
+  width: 5px;
+  background: aliceblue;
+}
+
+.search-items::-webkit-scrollbar-thumb{
+  background: grey;
+}
+
+.search-item-name{
+  display: flex;
+  align-self: start;
+  margin-left: 20px;
+  margin-top: 5px;
+  font-weight: 400;
+}
+
+.search-item-body{
+  align-self: start;
+  margin-left: 20px;
+  padding-bottom: 10px;
+}
 .navbar .search .closebutton {
   background: grey;
-  border-radius: 40px;
+  border-radius: 50%;
   padding: 6px;
   z-index: 3;
   cursor: pointer;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
-.navbar .search .closebutton i {
+.navbar .search .closebutton svg {
+  font-size: medium;
   color: white;
 }
 
@@ -782,6 +992,44 @@ section .card-login.active .signinBx .about {
 .image-upload-button {
   display: flex;
   flex-direction: row;
+}
+
+.menu{
+  display: flex;
+  font-size: inherit;
+  position: absolute;
+  right: 20px;
+}
+
+.menu-container{
+  position: absolute;
+  display: flex;
+  right: 10px;
+  height: fit-content;
+  color: black;
+  flex-direction: column;
+  z-index: 3;
+  top: 42px;
+  background: white;
+  padding: 10px;
+  border: 1px solid grey;
+  transition: 1s;
+  transition-timing-function:ease-in
+}
+
+.menu-item{
+  padding-left: 5px;
+  padding-right:5px;
+  padding-bottom:5px;
+  width: 60px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menu-item:nth-last-child(1){
+  padding-bottom:0px;
+  padding-top:5px;
+  border-top: 1px solid lightgrey;
 }
 
 @-webkit-keyframes sk-bouncedelay {

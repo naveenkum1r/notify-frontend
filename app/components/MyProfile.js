@@ -20,7 +20,7 @@ function MyProfile() {
       try {
         const response = await Axios.put("/api/v1/auth/photo", formdata, { headers: { Authorization: `Bearer ` + appState.user.token, "Content-Type": e.target.files[0].type } })
         appDispatch({ type: "updateprofilepicture", data: response.data })
-        console.log("dp upload successfull")
+        appDispatch({ type: "flashMessage", data: { type: "ok", body: "Profile picture updated!" } })
       } catch (err) {
         console.log("error happened during dp upload")
       }
@@ -50,8 +50,9 @@ function MyProfile() {
       try {
         const response = await Axios.put("/api/v1/auth/updatedetails", { location: appState.user.location }, { headers: { Authorization: `Bearer ` + appState.user.token } })
         console.log(response.data.success)
+        appDispatch({ type: "flashMessage", data: { type: "ok", body: "Current Location set as default" } })
       } catch (err) {
-        console.log(err)
+        appDispatch({ type: "flashMessage", data: { type: "danger", body: "Unable to send location to server" } })
       }
     }
     if (locationchanged) {
@@ -69,7 +70,13 @@ function MyProfile() {
       <div className="card-center">
         {appState.loggedIn && (
           <>
-            <div className="profile-profile-picture">
+            <div onClick={(e) =>
+              appDispatch({
+                type: "modalMessage", data: (
+                  <img className="image-full" src={profilesource} />
+                )
+              })
+            } className="profile-profile-picture">
               <img id="profile-image" src={profilesource} />
               <label>
                 <input onChange={handledpupload} className="hide" type="file" accept="image/gif, image/jpeg, image/png" />
@@ -93,22 +100,23 @@ function MyProfile() {
             {appState.loggedIn ? (
               <>
                 {" "}
-                <div className="view-my-post">View my posts</div>
+                <div className="view-my-post"><Link to={"/myposts"}>View my posts</Link></div>
                 <div onClick={handlelocationupdate} className="set-current-location">
                   Set current location as default location
                 </div>
-                <div className="change-password">Change password</div>
-                <div onClick={(e) => appDispatch({ type: "logout" })} className="log-out">
+                <div className="change-password"><Link to="/changepassword">Change password</Link></div>
+                <div onClick={(e) => { appDispatch({ type: "logout" }); appDispatch({ type: "flashMessage", data: { type: "ok", body: "You are logged out." } }) }} className="log-out">
                   <Link to={"/"}>Log Out</Link>
                 </div>
               </>
             ) : (
-              <>
-                <Link to={"/login"} className="log-out">
-                  Log In
+                <>
+                  {" "}
+                  <Link to={"/login"} className="log-out">
+                    Log In
                 </Link>
-              </>
-            )}
+                </>
+              )}
           </div>
         </div>
       </div>

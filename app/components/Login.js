@@ -68,13 +68,14 @@ function Login(props) {
             const response2 = await Axios.get("/api/v1/auth/me", { headers: { 'Authorization': `Bearer ` + response.data.token } })
             appDispatch({ type: "setUserInfo", data: response2.data })
             appDispatch({ type: "login", data: response.data })
+            appDispatch({ type: "flashMessage", data: { type: "ok", body: "Welcome!" } })
             props.history.push("/")
           }
           catch (err) {
-            console.log(err)
+            appDispatch({ type: "flashMessage", data: { type: "danger", body: "Some information is not correct" } })
           }
         } catch (e) {
-          console.log("There was a problem or the request was cancelled")
+          appDispatch({ type: "flashMessage", data: { type: "danger", body: "Some information is not correct" } })
         }
       }
       fetchResults()
@@ -92,14 +93,15 @@ function Login(props) {
         const response2 = await Axios.get("/api/v1/auth/me", { headers: { 'Authorization': `Bearer ` + response.data.token } })
         appDispatch({ type: "setUserInfo", data: response2.data })
         appDispatch({ type: "login", data: response.data })
+        appDispatch({ type: "flashMessage", data: { type: "ok", body: "Welcome!" } })
         props.history.push("/")
       }
       catch (err) {
-        console.log(err)
+        appDispatch({ type: "flashMessage", data: { type: "danger", body: "Wrong Username or password" } })
       }
     }
     catch (err) {
-      console.log(err)
+      appDispatch({ type: "flashMessage", data: { type: "danger", body: "Wrong Username or password" } })
     }
   }
 
@@ -107,6 +109,18 @@ function Login(props) {
     e.preventDefault()
     if (registerstate.password.value == registerstate.confirmpassword.value) {
       registerdispatch({ type: "submitForm" })
+    }
+  }
+
+  async function sendEmail(e) {
+    e.preventDefault()
+    try {
+      const response = await Axios.post("/api/v1/auth/forgotpassword", { email: registerstate.email.value }, { headers: { "Content-Type": "application/json" } })
+      console.log("email will be sent if the email id exists in our database")
+      appDispatch({ type: "flashMessage", data: { type: "alert", body: "An email will be sent to you." } })
+      props.history.push("/")
+    } catch (err) {
+
     }
   }
 
@@ -151,10 +165,10 @@ function Login(props) {
           {forgetactive && (
             <div className="user signupBx">
               <div className="formBx">
-                <form>
+                <form onSubmit={sendEmail}>
                   <h2>Forgot Password</h2>
                   <h4>An email will be sent to your email id with password reset link.</h4>
-                  <input type="text" name="" placeholder="Email Address" />
+                  <input onChange={(e) => registerdispatch({ type: "emailImmediately", value: e.target.value })} type="text" name="" placeholder="Email Address" />
                   <input type="submit" name="" value="Send" />
                   <p className="signup">Already have an account ? <a href="#" onClick={(e) => setFormActive(!formactive)}>Log In</a></p>
                 </form>
