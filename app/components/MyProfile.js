@@ -70,14 +70,14 @@ function MyProfile() {
       <div className="card-center">
         {appState.loggedIn && (
           <>
-            <div onClick={(e) =>
-              appDispatch({
-                type: "modalMessage", data: (
-                  <img className="image-full" src={profilesource} />
-                )
-              })
-            } className="profile-profile-picture">
-              <img id="profile-image" src={profilesource} />
+            <div className="profile-profile-picture">
+              <img onClick={(e) =>
+                appDispatch({
+                  type: "modalMessage", data: (
+                    <img className="image-full" src={profilesource} />
+                  )
+                })
+              } id="profile-image" src={profilesource} alt="image is not available or loading..." />
               <label>
                 <input onChange={handledpupload} className="hide" type="file" accept="image/gif, image/jpeg, image/png" />
                 <i className="fa fa-camera"></i>
