@@ -93,7 +93,7 @@ function MyProfile() {
             </div>
             <div className="location-name">Your Default location</div>
             <div className="value">{appState.userpostradius} Km</div>
-            <input onChange={(e) => appDispatch({ type: "setPostRadius", data: e.target.value })} id="range" type="range" min="0.5" max="10" step="0.5" value={appState.userpostradius} />
+            <input onChange={(e) => appDispatch({ type: "setPostRadius", data: e.target.value })} id="range" type="range" min="0" max="3000" step="200" value={appState.userpostradius} />
             <div className="set-locaton-name">Range of posts in your feed</div>
           </div>
           <div className="right-pane">
