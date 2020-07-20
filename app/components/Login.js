@@ -130,7 +130,8 @@ function Login(props) {
         <div className={formactive ? `card-login active` : `card-login`} >
           <div id="signinbox" className="user signinBx">
             <div className="about">
-              <p>sdfsdfsfs</p>
+              <h2>Welcome to Notify!!</h2>
+              <p> This is an application which sends you all the posts created by people near you. This however requires your location permission. Please grant permission if asked for the application to work correctly. By going to your profile, you can choose the radius in Km from which you want to recieve post. This application sends your posts to others in realtime. We hope you'll like it 😀</p>
             </div>
             <div className="formBx">
               <form onSubmit={handleLoginSubmit}>
@@ -158,7 +159,15 @@ function Login(props) {
               </form>
             </div>
             <div className="about">
-              <p>sdfsdfsfs</p>
+              <p>Kindly provide all the information in the form. <br></br>
+
+              The name is whatever you prever to show to others.<br></br>
+
+              Email id will be used if you forget your password.<br></br>
+
+              The username should be a unique one.<br></br>
+
+              Password should be atleast 6 characters long.</p>
             </div>
           </div>
 
@@ -167,14 +176,13 @@ function Login(props) {
               <div className="formBx">
                 <form onSubmit={sendEmail}>
                   <h2>Forgot Password</h2>
-                  <h4>An email will be sent to your email id with password reset link.</h4>
                   <input onChange={(e) => registerdispatch({ type: "emailImmediately", value: e.target.value })} type="text" name="" placeholder="Email Address" />
                   <input type="submit" name="" value="Send" />
                   <p className="signup">Already have an account ? <a href="#" onClick={(e) => setFormActive(!formactive)}>Log In</a></p>
                 </form>
               </div>
               <div className="about">
-                <p>sdfsdfsfs</p>
+                <p> Kindly put in your email adddress in the provided input box and press send to get an email. Follow the instructions in the email to update your password. The email will be valid for 10 mins only. If the link does not work then kindly fill this form again and try.</p>
               </div>
             </div>
           )}

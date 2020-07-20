@@ -26,7 +26,7 @@ function HomeGuest() {
   })
 
   window.onscroll = function (ev) {
-    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.pageYOffset + 20) >= document.body.offsetHeight - 20) {
       if (!state.feedloading && !state.feedfinished) {
         setState((draft) => { draft.feedloading = true; draft.page++ })
       }
