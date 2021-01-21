@@ -31,7 +31,7 @@
     "fs-extra": "^9.0.1",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.3.0",
-    "immer": "^7.0.5",
+    "immer": "^8.0.1",
     "javascript-time-ago": "^2.0.8",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
